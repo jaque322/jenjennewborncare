@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace jenjennewborncare.Models
 {
-    public class BabyCareServiceModel
+    public class Service
     {
         [Key]
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace jenjennewborncare.Models
 
         public virtual ICollection<ServiceImage> ServiceImages { get; set; }
 
-        public BabyCareServiceModel()
+        public Service()
         {
             DateCreated = DateTime.Now;
             ServiceImages = new HashSet<ServiceImage>();

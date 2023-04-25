@@ -10,7 +10,7 @@ public class jenjennewborncareContext : IdentityDbContext<User>
 {
 
     public DbSet<Review> review { get; set; }
-    public DbSet<BabyCareServiceModel> BabyCareServices { get; set; }
+    public DbSet<Service> BabyCareServices { get; set; }
     public DbSet<ServiceImage> ServiceImages { get; set; }
 
     public jenjennewborncareContext(DbContextOptions<jenjennewborncareContext> options)

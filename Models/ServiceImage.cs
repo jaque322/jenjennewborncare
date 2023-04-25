@@ -12,8 +12,8 @@ namespace jenjennewborncare.Models
         [MaxLength(255)]
         public string ImageUrl { get; set; }
 
-        [ForeignKey("BabyCareServiceModel")]
+        [ForeignKey("Service")]
         public int BabyCareServiceModelId { get; set; }
-        public virtual BabyCareServiceModel? BabyCareServiceModel { get; set; }
+        public virtual Service? BabyCareServiceModel { get; set; }
     }
 }
