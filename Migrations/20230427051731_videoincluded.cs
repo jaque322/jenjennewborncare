@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace jenjennewborncare.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class videoincluded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -88,6 +88,20 @@ namespace jenjennewborncare.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_review", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Videos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    YouTubeVideoId = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Videos", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -289,6 +303,9 @@ namespace jenjennewborncare.Migrations
 
             migrationBuilder.DropTable(
                 name: "ServiceImages");
+
+            migrationBuilder.DropTable(
+                name: "Videos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

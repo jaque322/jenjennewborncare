@@ -1,0 +1,30 @@
+﻿@model IEnumerable<jenjennewborncare.Models.Video>;
+
+<section class="bg-light" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="intro">
+
+                    <h1 class="text-center">Videos of our Services</h1>
+                    <p class="text-center">
+                        Commentaries of our clients about our services.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="portafolio" class="owl-theme owl-carousel">
+
+        @foreach (var item in Model.ToList())
+        {
+            <div class="item-video" data-merge="1" style="background-image: url('@($"https://img.youtube.com/vi/{item.YouTubeVideoId}/hqdefault.jpg")');">
+                <a class="owl-video" href="@($"https://www.youtube.com/watch?v={item.YouTubeVideoId}")"></a>
+            </div>
+        }
+
+
+
+
+    </div>
+</section>

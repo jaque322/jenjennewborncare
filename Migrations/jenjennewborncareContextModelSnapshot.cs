@@ -215,7 +215,33 @@ namespace jenjennewborncare.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("jenjennewborncare.Models.BabyCareServiceModel", b =>
+            modelBuilder.Entity("jenjennewborncare.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("review");
+                });
+
+            modelBuilder.Entity("jenjennewborncare.Models.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,32 +273,6 @@ namespace jenjennewborncare.Migrations
                     b.ToTable("BabyCareServices");
                 });
 
-            modelBuilder.Entity("jenjennewborncare.Models.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("review");
-                });
-
             modelBuilder.Entity("jenjennewborncare.Models.ServiceImage", b =>
                 {
                     b.Property<int>("Id")
@@ -292,6 +292,22 @@ namespace jenjennewborncare.Migrations
                     b.HasIndex("BabyCareServiceModelId");
 
                     b.ToTable("ServiceImages");
+                });
+
+            modelBuilder.Entity("jenjennewborncare.Models.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("YouTubeVideoId")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -347,7 +363,7 @@ namespace jenjennewborncare.Migrations
 
             modelBuilder.Entity("jenjennewborncare.Models.ServiceImage", b =>
                 {
-                    b.HasOne("jenjennewborncare.Models.BabyCareServiceModel", "BabyCareServiceModel")
+                    b.HasOne("jenjennewborncare.Models.Service", "BabyCareServiceModel")
                         .WithMany("ServiceImages")
                         .HasForeignKey("BabyCareServiceModelId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -356,7 +372,7 @@ namespace jenjennewborncare.Migrations
                     b.Navigation("BabyCareServiceModel");
                 });
 
-            modelBuilder.Entity("jenjennewborncare.Models.BabyCareServiceModel", b =>
+            modelBuilder.Entity("jenjennewborncare.Models.Service", b =>
                 {
                     b.Navigation("ServiceImages");
                 });

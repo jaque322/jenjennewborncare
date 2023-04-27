@@ -10,89 +10,87 @@ using jenjennewborncare.Models;
 
 namespace jenjennewborncare.Controllers
 {
-    [Route("admin/[controller]/[action]")]
-
-    public class ServicesController : Controller
+    public class VideosController : Controller
     {
         private readonly jenjennewborncareContext _context;
 
-        public ServicesController(jenjennewborncareContext context)
+        public VideosController(jenjennewborncareContext context)
         {
             _context = context;
         }
 
-        // GET: Services
+        // GET: Videos
         public async Task<IActionResult> Index()
         {
-              return _context.BabyCareServices != null ? 
-                          View(await _context.BabyCareServices.ToListAsync()) :
-                          Problem("Entity set 'jenjennewborncareContext.BabyCareServices'  is null.");
+              return _context.Videos != null ? 
+                          View(await _context.Videos.ToListAsync()) :
+                          Problem("Entity set 'jenjennewborncareContext.Videos'  is null.");
         }
 
-        // GET: Services/Details/5
+        // GET: Videos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Videos == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices
+            var video = await _context.Videos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            if (video == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(video);
         }
 
-        // GET: Services/Create
+        // GET: Videos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Services/Create
+        // POST: Videos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ServiceName,ServiceContent,ProviderName,Price,DateCreated")] Service service)
+        public async Task<IActionResult> Create([Bind("Id,YouTubeVideoId")] Video video)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(service);
+                _context.Add(video);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(video);
         }
 
-        // GET: Services/Edit/5
+        // GET: Videos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Videos == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices.FindAsync(id);
-            if (service == null)
+            var video = await _context.Videos.FindAsync(id);
+            if (video == null)
             {
                 return NotFound();
             }
-            return View(service);
+            return View(video);
         }
 
-        // POST: Services/Edit/5
+        // POST: Videos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceName,ServiceContent,ProviderName,Price,DateCreated")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,YouTubeVideoId")] Video video)
         {
-            if (id != service.Id)
+            if (id != video.Id)
             {
                 return NotFound();
             }
@@ -101,12 +99,12 @@ namespace jenjennewborncare.Controllers
             {
                 try
                 {
-                    _context.Update(service);
+                    _context.Update(video);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceExists(service.Id))
+                    if (!VideoExists(video.Id))
                     {
                         return NotFound();
                     }
@@ -117,49 +115,49 @@ namespace jenjennewborncare.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(video);
         }
 
-        // GET: Services/Delete/5
+        // GET: Videos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Videos == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices
+            var video = await _context.Videos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            if (video == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(video);
         }
 
-        // POST: Services/Delete/5
+        // POST: Videos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.BabyCareServices == null)
+            if (_context.Videos == null)
             {
-                return Problem("Entity set 'jenjennewborncareContext.BabyCareServices'  is null.");
+                return Problem("Entity set 'jenjennewborncareContext.Videos'  is null.");
             }
-            var service = await _context.BabyCareServices.FindAsync(id);
-            if (service != null)
+            var video = await _context.Videos.FindAsync(id);
+            if (video != null)
             {
-                _context.BabyCareServices.Remove(service);
+                _context.Videos.Remove(video);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServiceExists(int id)
+        private bool VideoExists(int id)
         {
-          return (_context.BabyCareServices?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Videos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -6,6 +6,7 @@ using jenjennewborncare.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
 var connectionString = "server=localhost;database=jenjeare_main;uid=jenje_01;pwd=?a5F7ds71";
+//var connectionString = "server=192.185.7.2;database=jenjeare_main;uid=jenje_01;pwd=?a5F7ds71";
 builder.Services.AddDbContext<jenjennewborncareContext>(options =>
     options.UseMySQL(connectionString));
 
@@ -31,6 +32,10 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+
+
+    ) ;
+
 
 app.Run();

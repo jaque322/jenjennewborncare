@@ -1,4 +1,5 @@
-﻿using jenjennewborncare.Models;
+﻿using jenjennewborncare.Data;
+using jenjennewborncare.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,18 @@ namespace jenjennewborncare.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly jenjennewborncareContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, jenjennewborncareContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var videos=_context.Videos.ToList();
+            return View(videos);
         }
 
         public IActionResult Privacy()

@@ -20,25 +20,57 @@
         }
     });
     /*project slider*/
-    $('#projects-slider').owlCarousel({
+    //$('#projects-slider').owlCarousel({
+    //    loop: true,
+    //    nav: false,
+    //    items: 2,
+    //    dots: true,
+    //    smartSpeed: 600,
+    //    center: true,
+    //    autoplay: true,
+    //    autoplayTimeout: 4000,
+    //    responsive: {
+    //        0: {
+    //            items: 1
+    //        },
+    //        768: {
+    //            items: 2,
+    //            margin: 8,
+    //        }
+    //    }
+    //});
+
+    $('#portafolio').owlCarousel({
+        items: 1,
         loop: true,
-        nav: false,
-        items: 2,
-        dots: true,
-        smartSpeed: 600,
+        margin: 10,
+        video: true,
+        lazyLoad: true,
         center: true,
         autoplay: true,
-        autoplayTimeout: 4000,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        nav: true,
+        dots: true,
         responsive: {
             0: {
                 items: 1
             },
+            480: {
+                items: 1
+            },
             768: {
-                items: 2,
-                margin: 8,
+                items: 2
+            },
+            992: {
+                items: 3
+            },
+            1200: {
+                items: 4
             }
         }
     });
+
 
     $('.reviews-slider').owlCarousel({
         loop: true,

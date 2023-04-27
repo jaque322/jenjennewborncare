@@ -1,5 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@if (!User.Identity.IsAuthenticated)
+{
+
+    @section HeaderContent
+    {
+    <partial name="LayoutViews/_Header" />
+    }
+
+    @section Milestone
+    {
+        <partial name="LayoutViews/_Milestone"/>
+    }
+    @section Services
+    {
+        <partial name="LayoutViews/_Services"/>
+    }
+      @section Portafolio
+    {
+        <partial name="LayoutViews/_Portafolio"/>
+    }
+
 }
 
 <div class="text-center">
