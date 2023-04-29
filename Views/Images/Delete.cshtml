@@ -1,0 +1,23 @@
+﻿
+@model jenjennewborncare.Models.Image
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_BackendLayout.cshtml";
+}
+
+<h1>Delete</h1>
+
+
+<h1>Delete Image</h1>
+
+<h3>Are you sure you want to delete this image?</h3>
+<div>
+    <h4>@Model.Title</h4>
+    <img src="@Url.Content("~/uploads/" + Model.FileName)" alt="@Model.Title" width="200">
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

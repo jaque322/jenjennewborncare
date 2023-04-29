@@ -26,12 +26,12 @@ namespace jenjennewborncare.Models
 
         public DateTime DateCreated { get; set; }
 
-        public virtual ICollection<ServiceImage> ServiceImages { get; set; }
+        public virtual ICollection<Image> ServiceImages { get; set; }
 
         public Service()
         {
             DateCreated = DateTime.Now;
-            ServiceImages = new HashSet<ServiceImage>();
+            ServiceImages = new HashSet<Image>();
         }
     }
 }

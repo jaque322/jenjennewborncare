@@ -11,7 +11,7 @@ public class jenjennewborncareContext : IdentityDbContext<User>
 
     public DbSet<Review> review { get; set; }
     public DbSet<Service> BabyCareServices { get; set; }
-    public DbSet<ServiceImage> ServiceImages { get; set; }
+    public DbSet<Image> Images { get; set; }
     public DbSet<Video> Videos { get; set; }
 
     public jenjennewborncareContext(DbContextOptions<jenjennewborncareContext> options)

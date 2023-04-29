@@ -11,8 +11,8 @@ using jenjennewborncare.Data;
 namespace jenjennewborncare.Migrations
 {
     [DbContext(typeof(jenjennewborncareContext))]
-    [Migration("20230427051731_videoincluded")]
-    partial class videoincluded
+    [Migration("20230429003954_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,6 +218,34 @@ namespace jenjennewborncare.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("jenjennewborncare.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("jenjennewborncare.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -274,27 +302,6 @@ namespace jenjennewborncare.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BabyCareServices");
-                });
-
-            modelBuilder.Entity("jenjennewborncare.Models.ServiceImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BabyCareServiceModelId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BabyCareServiceModelId");
-
-                    b.ToTable("ServiceImages");
                 });
 
             modelBuilder.Entity("jenjennewborncare.Models.Video", b =>
@@ -364,15 +371,11 @@ namespace jenjennewborncare.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("jenjennewborncare.Models.ServiceImage", b =>
+            modelBuilder.Entity("jenjennewborncare.Models.Image", b =>
                 {
-                    b.HasOne("jenjennewborncare.Models.Service", "BabyCareServiceModel")
+                    b.HasOne("jenjennewborncare.Models.Service", null)
                         .WithMany("ServiceImages")
-                        .HasForeignKey("BabyCareServiceModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BabyCareServiceModel");
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("jenjennewborncare.Models.Service", b =>
