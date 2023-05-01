@@ -28,6 +28,9 @@ public class ImagesController : Controller
     // GET: Images/Create
     public IActionResult Create()
     {
+    
+      
+
         return View();
     }
 
@@ -55,7 +58,9 @@ public class ImagesController : Controller
             var image = new Image
             {
                 Title = viewModel.Title,
-                FileName = fileName
+                FileName = fileName,
+                Type = viewModel.TypeId
+
             };
 
             _context.Add(image);
@@ -84,7 +89,9 @@ public class ImagesController : Controller
         var viewModel = new ImageUploadViewModel
         {
             Id = image.Id,
-            Title = image.Title
+            Title = image.Title,
+            TypeId= image.Type
+
         };
 
         return View(viewModel);

@@ -11,7 +11,7 @@ using jenjennewborncare.Data;
 namespace jenjennewborncare.Migrations
 {
     [DbContext(typeof(jenjennewborncareContext))]
-    [Migration("20230429003954_first")]
+    [Migration("20230501014546_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -229,19 +229,15 @@ namespace jenjennewborncare.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
 
                     b.ToTable("Images");
                 });
@@ -294,12 +290,18 @@ namespace jenjennewborncare.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
+                    b.Property<int?>("ServiceImageId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<string>("ServiceName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceImageId");
 
                     b.ToTable("BabyCareServices");
                 });
@@ -371,16 +373,15 @@ namespace jenjennewborncare.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("jenjennewborncare.Models.Image", b =>
-                {
-                    b.HasOne("jenjennewborncare.Models.Service", null)
-                        .WithMany("ServiceImages")
-                        .HasForeignKey("ServiceId");
-                });
-
             modelBuilder.Entity("jenjennewborncare.Models.Service", b =>
                 {
-                    b.Navigation("ServiceImages");
+                    b.HasOne("jenjennewborncare.Models.Image", "ServiceImage")
+                        .WithMany()
+                        .HasForeignKey("ServiceImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceImage");
                 });
 #pragma warning restore 612, 618
         }

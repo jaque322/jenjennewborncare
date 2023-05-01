@@ -26,12 +26,15 @@ namespace jenjennewborncare.Models
 
         public DateTime DateCreated { get; set; }
 
-        public virtual ICollection<Image> ServiceImages { get; set; }
+        // Add the foreign key property for the Image model
+        public int? ServiceImageId { get; set; }
+
+        [ForeignKey("ServiceImageId")]
+        public virtual Image ServiceImage { get; set; }
 
         public Service()
         {
             DateCreated = DateTime.Now;
-            ServiceImages = new HashSet<Image>();
         }
     }
 }

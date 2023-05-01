@@ -17,6 +17,16 @@
         <label>Choose New Image (optional)</label>
         <input type="file" name="FileToUpload" class="form-control" />
     </div>
+    <!-- Add the new form-group for TypeId -->
+    <div class="form-group">
+        <label asp-for="TypeId">Image Type</label>
+        <select id="TypeId" name="TypeId" asp-for="TypeId" class="form-control">
+            <option value="Navbar">Navbar</option>
+            <option value="Team">Team</option>
+            <option value="Services">Services</option>
+        </select>
+        <span asp-validation-for="TypeId" class="text-danger"></span>
+    </div>
     <button type="submit" class="btn btn-primary">Update</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

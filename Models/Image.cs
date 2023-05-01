@@ -13,11 +13,10 @@ namespace jenjennewborncare.Models
         [Required]
         [MaxLength(255)]
         public string FileName { get; set; }
+        [Required]
+        public string Type { get; set; }
 
-        public int Type { get; set; }
 
-        //[ForeignKey("Service")]
-        //public int BabyCareServiceModelId { get; set; }
-        //public virtual Service? BabyCareServiceModel { get; set; }
+        
     }
 }

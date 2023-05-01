@@ -15,6 +15,8 @@
         <tr>
             <th>Title</th>
             <th>Image</th>
+            <th>Type</th>
+
             <th>Actions</th>
         </tr>
     </thead>
@@ -25,6 +27,9 @@
                 <td>@image.Title</td>
                 <td>
                     <img src="~/uploads/@image.FileName" alt="@image.Title" width="100" height="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => @image.Type) <!-- or use the corresponding image type description -->
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@image.Id" class="btn btn-warning">Edit</a>

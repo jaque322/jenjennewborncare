@@ -10,11 +10,13 @@ using jenjennewborncare.Models;
 
 namespace jenjennewborncare.Controllers
 {
-    public class ServicesController : Controller
+    [Route("admin/[controller]/[action]")]
+
+    public class ServicesController_temp : Controller
     {
         private readonly jenjennewborncareContext _context;
 
-        public ServicesController(jenjennewborncareContext context)
+        public ServicesController_temp(jenjennewborncareContext context)
         {
             _context = context;
         }
@@ -22,8 +24,9 @@ namespace jenjennewborncare.Controllers
         // GET: Services
         public async Task<IActionResult> Index()
         {
-            var jenjennewborncareContext = _context.BabyCareServices.Include(s => s.ServiceImage);
-            return View(await jenjennewborncareContext.ToListAsync());
+              return _context.BabyCareServices != null ? 
+                          View(await _context.BabyCareServices.ToListAsync()) :
+                          Problem("Entity set 'jenjennewborncareContext.BabyCareServices'  is null.");
         }
 
         // GET: Services/Details/5
@@ -35,7 +38,6 @@ namespace jenjennewborncare.Controllers
             }
 
             var service = await _context.BabyCareServices
-                .Include(s => s.ServiceImage)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
@@ -48,7 +50,9 @@ namespace jenjennewborncare.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["ServiceImageId"] = new SelectList(_context.Images, "Id", "FileName");
+            var images = _context.Images.ToList();
+            ViewBag.Images = images;
+
             return View();
         }
 
@@ -59,12 +63,12 @@ namespace jenjennewborncare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ServiceName,ServiceContent,ProviderName,Price,DateCreated,ServiceImageId")] Service service)
         {
-           
+            if (ModelState.IsValid)
+            {
                 _context.Add(service);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            
-            ViewData["ServiceImageId"] = new SelectList(_context.Images, "Id", "FileName", service.ServiceImageId);
+            }
             return View(service);
         }
 
@@ -81,7 +85,6 @@ namespace jenjennewborncare.Controllers
             {
                 return NotFound();
             }
-            ViewData["ServiceImageId"] = new SelectList(_context.Images, "Id", "FileName", service.ServiceImageId);
             return View(service);
         }
 
@@ -90,7 +93,7 @@ namespace jenjennewborncare.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceName,ServiceContent,ProviderName,Price,DateCreated,ServiceImageId")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceName,ServiceContent,ProviderName,Price,DateCreated")] Service service)
         {
             if (id != service.Id)
             {
@@ -117,7 +120,6 @@ namespace jenjennewborncare.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceImageId"] = new SelectList(_context.Images, "Id", "FileName", service.ServiceImageId);
             return View(service);
         }
 
@@ -130,7 +132,6 @@ namespace jenjennewborncare.Controllers
             }
 
             var service = await _context.BabyCareServices
-                .Include(s => s.ServiceImage)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
