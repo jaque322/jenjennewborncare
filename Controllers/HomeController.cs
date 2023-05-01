@@ -1,5 +1,6 @@
 ﻿using jenjennewborncare.Data;
 using jenjennewborncare.Models;
+using jenjennewborncare.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -19,7 +20,14 @@ namespace jenjennewborncare.Controllers
         public IActionResult Index()
         {
             var videos=_context.Videos.ToList();
-            return View(videos);
+            var images=_context.Images.ToList();
+            var nannies=_context.Nannies.ToList();
+            var viewModel = new HomeViewModel {
+                Videos = videos,
+                Images = images,
+                Nannies = nannies,
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using jenjennewborncare.Data;
 
@@ -10,9 +11,11 @@ using jenjennewborncare.Data;
 namespace jenjennewborncare.Migrations
 {
     [DbContext(typeof(jenjennewborncareContext))]
-    partial class jenjennewborncareContextModelSnapshot : ModelSnapshot
+    [Migration("20230501033019_nannie3")]
+    partial class nannie3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

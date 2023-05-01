@@ -1,4 +1,4 @@
-﻿@model IEnumerable<jenjennewborncare.Models.Video>;
+﻿@model jenjennewborncare.ViewModels.HomeViewModel;
 
 <section class="bg-light" id="portfolio">
     <div class="container">
@@ -16,7 +16,7 @@
     </div>
     <div id="portafolio" class="owl-theme owl-carousel">
 
-        @foreach (var item in Model.ToList())
+        @foreach (var item in Model.Videos)
         {
             <div class="item-video" data-merge="1" style="background-image: url('@($"https://img.youtube.com/vi/{item.YouTubeVideoId}/hqdefault.jpg")');">
                 <a class="owl-video" href="@($"https://www.youtube.com/watch?v={item.YouTubeVideoId}")"></a>

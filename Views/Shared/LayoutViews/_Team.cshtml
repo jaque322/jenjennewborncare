@@ -1,4 +1,5 @@
-﻿<section id="team">
+﻿@model jenjennewborncare.ViewModels.HomeViewModel
+<section id="team">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -11,25 +12,40 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-8">
-                <div class="team-member">
-                    <div class="image">
-                        <img src="~/images/nanni1.jpg" alt="">
-                        <div class="social-icons">
-                            <a href="#"><i class='bx bxl-facebook'></i></a>
-                            <a href="#"><i class='bx bxl-twitter'></i></a>
-                            <a href="#"><i class='bx bxl-instagram'></i></a>
-                            <a href="#"><i class='bx bxl-pinterest'></i></a>
-                        </div>
-                        <div class="overlay"></div>
-                    </div>
 
-                    <h5>Marvin McKinney</h5>
-                    <p>Nanny</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-8">
+
+        <div class="row justify-content-center">
+
+            @foreach (var team in Model.Nannies)
+            {
+                if (team.Image.Type == "Team")
+                {
+                    <div class="col-lg-4 col-md-8">
+                        <div class="team-member">
+                            <div class="image">
+                                <img src="@Url.Content($"~/uploads/{team.Image.FileName}")" alt="@team.Image.Title">
+
+
+
+                                <div class="social-icons">
+                                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                                </div>
+                                <div class="overlay"></div>
+                            </div>
+                            <h5>@team.Name</h5>
+                            <p>@team.Description</p>
+                        </div>
+                    </div>
+                }
+            }
+
+
+
+
+     @*       <div class="col-lg-4 col-md-8">
                 <div class="team-member">
                     <div class="image">
                         <img src="~/images/nanni2.jpg" alt="">
@@ -80,6 +96,6 @@
                     <p>Nannie Senior</p>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
 </section>

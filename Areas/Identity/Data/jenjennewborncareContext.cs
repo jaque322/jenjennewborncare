@@ -13,6 +13,7 @@ public class jenjennewborncareContext : IdentityDbContext<User>
     public DbSet<Service> BabyCareServices { get; set; }
     public DbSet<Image> Images { get; set; }
     public DbSet<Video> Videos { get; set; }
+    public DbSet<Nannie> Nannies { get; set; }
 
     public jenjennewborncareContext(DbContextOptions<jenjennewborncareContext> options)
         : base(options)

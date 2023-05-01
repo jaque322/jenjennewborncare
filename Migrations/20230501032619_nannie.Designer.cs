@@ -11,8 +11,8 @@ using jenjennewborncare.Data;
 namespace jenjennewborncare.Migrations
 {
     [DbContext(typeof(jenjennewborncareContext))]
-    [Migration("20230501014546_first")]
-    partial class first
+    [Migration("20230501032619_nannie")]
+    partial class nannie
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
