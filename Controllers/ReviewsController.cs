@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace jenjennewborncare.Controllers
 {
-    [Authorize]
     public class ReviewsController : Controller
     {
         private readonly jenjennewborncareContext _context;

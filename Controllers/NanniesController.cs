@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace jenjennewborncare.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class NanniesController : Controller
     {
         private readonly jenjennewborncareContext _context;
@@ -48,7 +48,6 @@ namespace jenjennewborncare.Controllers
         }
 
         // GET: Nannies/Create
-      
         public IActionResult Create()
         {
             var filteredImages = _context.Images.Where(x => x.Type == "Team");
