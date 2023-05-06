@@ -7,6 +7,8 @@ using jenjennewborncare.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
+//var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
+
 
 
 //ConfigurationBinder for oauth google
@@ -14,12 +16,11 @@ var configuration = builder.Configuration;
 
 
 //var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
-var connectionString = "server=localhost;database=jenjeare_main;uid=jenje_01;pwd=?a5F7ds71";
-//var connectionString = "server=192.185.7.2;database=jenjeare_main;uid=jenje_01;pwd=?a5F7ds71";
+var connectionString = configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
 builder.Services.AddDbContext<jenjennewborncareContext>(options =>
     options.UseMySQL(connectionString));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount=true)
     .AddEntityFrameworkStores<jenjennewborncareContext>();
 
 // Add services to the container.
