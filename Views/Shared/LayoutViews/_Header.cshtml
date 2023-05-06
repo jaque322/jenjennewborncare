@@ -1,6 +1,14 @@
-﻿
-   <div class="slider-wrapper owl-carousel owl-theme" id="hero-slider">
-            <div class="slide1 min-vh-100 bg-cover d-flex align-items-center">
+﻿@model jenjennewborncare.ViewModels.HomeViewModel
+
+<div class="slider-wrapper owl-carousel owl-theme" id="hero-slider">
+    
+    @foreach (var item in Model.Images)
+    {
+        if (item.Type == "Navbar")
+        {
+            <div class="slide min-vh-100 bg-cover d-flex align-items-center" style="background-image: linear-gradient(rgba(9,32,50,0.4),rgba(9,32,50,0.4)),url('@(Url.Content("~/uploads/" + item.FileName))')">
+
+
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -12,18 +20,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="slide2 min-vh-100 bg-cover d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h6 class="text-uppercase text-white"> We Care Babies</h6>
-                            <h1 class="display-2 my-3 text-white text-uppercase">The Best Nannies</h1>
-                            <a href="#" class="btn btn-brand">Schedule</a>
-                            <a href="#" class="btn btn-outline-light ms-md-3">Services</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+         
+        }
+    }
+</div>

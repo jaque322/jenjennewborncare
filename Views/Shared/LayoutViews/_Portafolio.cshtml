@@ -1,4 +1,4 @@
-﻿@model jenjennewborncare.ViewModels.HomeViewModel;
+﻿@model jenjennewborncare.ViewModels.HomeViewModel
 
 <section class="bg-light" id="portfolio">
     <div class="container">
@@ -18,7 +18,7 @@
 
         @foreach (var item in Model.Videos)
         {
-            <div class="item-video" data-merge="1" style="background-image: url('@($"https://img.youtube.com/vi/{item.YouTubeVideoId}/hqdefault.jpg")');">
+            <div class="item-video" data-merge="1" style="background-image: url('@($"https://img.youtube.com/vi/{item.YouTubeVideoId}/hqdefault.jpg")')">
                 <a class="owl-video" href="@($"https://www.youtube.com/watch?v={item.YouTubeVideoId}")"></a>
             </div>
         }

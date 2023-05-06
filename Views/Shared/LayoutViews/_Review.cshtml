@@ -1,0 +1,29 @@
+﻿@model jenjennewborncare.ViewModels.HomeViewModel
+
+<section class="bg-light" id="reviews">
+
+    <div class="owl-theme owl-carousel reviews-slider container">
+        @foreach (var item in Model.Reviews)
+        {
+
+            <div class="review">
+                <div class="person">
+                    <img src="~/images/team_1.jpg" alt="">
+                    <h5>@item.Name</h5>
+                    <small>JENENNEWBORNCARE CLIENT</small>
+                </div>
+                <h3>
+                    @item.Description
+                </h3>
+                <div class="stars">
+                    @for (int i = 0; i < item.Rating; i++)
+                    {
+                        <i class='bx bxs-star'></i>
+
+                    }
+               
+                </div>
+            </div>
+        }
+        </div>
+</section>

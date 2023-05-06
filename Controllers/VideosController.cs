@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using jenjennewborncare.Data;
 using jenjennewborncare.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace jenjennewborncare.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class VideosController : Controller
     {
         private readonly jenjennewborncareContext _context;

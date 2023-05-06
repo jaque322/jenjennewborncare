@@ -11,92 +11,89 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace jenjennewborncare.Controllers
 {
-    [Authorize(Roles = "admin")]
-    public class NanniesController : Controller
+    public class ReviewsController : Controller
     {
         private readonly jenjennewborncareContext _context;
 
-        public NanniesController(jenjennewborncareContext context)
+        public ReviewsController(jenjennewborncareContext context)
         {
             _context = context;
         }
 
-        // GET: Nannies
+        // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            var jenjennewborncareContext = _context.Nannies.Include(n => n.Image);
-            return View(await jenjennewborncareContext.ToListAsync());
+              return _context.review != null ? 
+                          View(await _context.review.ToListAsync()) :
+                          Problem("Entity set 'jenjennewborncareContext.review'  is null.");
         }
 
-        // GET: Nannies/Details/5
+        // GET: Reviews/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Nannies == null)
+            if (id == null || _context.review == null)
             {
                 return NotFound();
             }
 
-            var nannie = await _context.Nannies
-                .Include(n => n.Image)
+            var review = await _context.review
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (nannie == null)
+            if (review == null)
             {
                 return NotFound();
             }
 
-            return View(nannie);
+            return View(review);
         }
 
-        // GET: Nannies/Create
+        // GET: Reviews/Create
+        [Authorize]
         public IActionResult Create()
         {
-            var filteredImages = _context.Images.Where(x => x.Type == "Team");
-            ViewBag.ImageIdSelectList = new SelectList(filteredImages, "Id", "FileName");
-
             return View();
         }
 
-        // POST: Nannies/Create
+        // POST: Reviews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,ImageId")] Nannie nannie)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Rating,ReviewDate")] Review review)
         {
-           
-                _context.Add(nannie);
+            if (ModelState.IsValid)
+            {
+                _context.Add(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            
-            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "FileName", nannie.ImageId);
-            return View(nannie);
+            }
+            return View(review);
         }
 
-        // GET: Nannies/Edit/5
+        // GET: Reviews/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Nannies == null)
+            if (id == null || _context.review == null)
             {
                 return NotFound();
             }
 
-            var nannie = await _context.Nannies.FindAsync(id);
-            if (nannie == null)
+            var review = await _context.review.FindAsync(id);
+            if (review == null)
             {
                 return NotFound();
             }
-            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "FileName", nannie.ImageId);
-            return View(nannie);
+            return View(review);
         }
 
-        // POST: Nannies/Edit/5
+        // POST: Reviews/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ImageId")] Nannie nannie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Rating,ReviewDate")] Review review)
         {
-            if (id != nannie.Id)
+            if (id != review.Id)
             {
                 return NotFound();
             }
@@ -105,12 +102,12 @@ namespace jenjennewborncare.Controllers
             {
                 try
                 {
-                    _context.Update(nannie);
+                    _context.Update(review);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NannieExists(nannie.Id))
+                    if (!ReviewExists(review.Id))
                     {
                         return NotFound();
                     }
@@ -121,51 +118,49 @@ namespace jenjennewborncare.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "FileName", nannie.ImageId);
-            return View(nannie);
+            return View(review);
         }
 
-        // GET: Nannies/Delete/5
+        // GET: Reviews/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Nannies == null)
+            if (id == null || _context.review == null)
             {
                 return NotFound();
             }
 
-            var nannie = await _context.Nannies
-                .Include(n => n.Image)
+            var review = await _context.review
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (nannie == null)
+            if (review == null)
             {
                 return NotFound();
             }
 
-            return View(nannie);
+            return View(review);
         }
 
-        // POST: Nannies/Delete/5
+        // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Nannies == null)
+            if (_context.review == null)
             {
-                return Problem("Entity set 'jenjennewborncareContext.Nannies'  is null.");
+                return Problem("Entity set 'jenjennewborncareContext.review'  is null.");
             }
-            var nannie = await _context.Nannies.FindAsync(id);
-            if (nannie != null)
+            var review = await _context.review.FindAsync(id);
+            if (review != null)
             {
-                _context.Nannies.Remove(nannie);
+                _context.review.Remove(review);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NannieExists(int id)
+        private bool ReviewExists(int id)
         {
-          return (_context.Nannies?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.review?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

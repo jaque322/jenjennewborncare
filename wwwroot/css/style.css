@@ -128,6 +128,13 @@ section {
 .slide2 {
     background-image: linear-gradient(rgba(9,32,50,0.4),rgba(9,32,50,0.4)),url(../images/2.jpg);
 }
+
+.slide {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /*owl carrousel*/
 .owl-prev, .owl-next {
     position: absolute;
@@ -355,11 +362,11 @@ section {
     }
 
     .review small {
-        color: var(--brand);
+        color: #E0E0E0;
     }
 
     .review .stars {
-        color: var(--brand);
+        color: yellow;
     }
 
 .blog-post {

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using jenjennewborncare.Data;
 using jenjennewborncare.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace jenjennewborncare.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ServicesController : Controller
     {
         private readonly jenjennewborncareContext _context;
@@ -48,7 +50,8 @@ namespace jenjennewborncare.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["ServiceImageId"] = new SelectList(_context.Images, "Id", "FileName");
+            var filteredImages = _context.Images.Where(x => x.Type == "Services");
+            ViewData["ServiceImageId"] = new SelectList(filteredImages, "Id", "FileName");
             return View();
         }
 

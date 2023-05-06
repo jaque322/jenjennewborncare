@@ -23,7 +23,7 @@
                             <i class='bx bxs-envelope'></i>
                             <span>jenjennewborncare.com</span>
                         </p>
-                        <p>
+                        <p>     
                             <i class='bx bxs-phone-call'></i>
                             <span>+1 (813) 408-0971</span>
                         </p>
@@ -57,7 +57,7 @@
                             <a class="nav-link" href="#">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reviews</a>
+                            <a class="nav-link" asp-controller="Reviews" asp-action="Create">Review</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
@@ -80,92 +80,20 @@
         </div>
     </header>
     @*About*@
-    @RenderSection("About",false);
+    @RenderSection("About",false)
 
 
     @*milestone*@
     @*Services*@
-    @RenderSection("Services",required:false);
+    @RenderSection("Services",required:false)
     @*Portafolio*@
     @*team*@
-    @RenderSection("Team",required:false);
-    @RenderSection("Portafolio",required:false);
-    @RenderSection("Milestone",required:false);
+    @RenderSection("Team",required:false)
+    @RenderSection("Portafolio",required:false)
+    @RenderSection("Milestone",required:false)
+    @RenderSection("Reviews",required:false)
 
-
-
-   
-
-   
-    <section class="bg-light" id="reviews">
-
-        <div class="owl-theme owl-carousel reviews-slider container">
-            <div class="review">
-                <div class="person">
-                    <img src="~/images/team_1.jpg" alt="">
-                    <h5>Ralph Edwards</h5>
-                    <small>Market Development Manager</small>
-                </div>
-                <h3>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut quis, rem culpa labore voluptate
-                    ullam! In, nostrum. Dicta, vero nihil. Delectus minus vitae rerum voluptatum, excepturi incidunt ut,
-                    enim nam exercitationem optio ducimus!
-                </h3>
-                <div class="stars">
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class="bx bxs-star-half"></i>
-                </div>
-                <i class='bx bxs-quote-alt-left'></i>
-            </div>
-            <div class="review">
-                <div class="person">
-                    <img src="~/images/team_2.jpg" alt="">
-                    <h5>Ralph Edwards</h5>
-                    <small>Market Development Manager</small>
-                </div>
-                <h3>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut quis, rem culpa labore voluptate
-                    ullam! In, nostrum. Dicta, vero nihil. Delectus minus vitae rerum voluptatum, excepturi incidunt ut,
-                    enim nam exercitationem optio ducimus!
-                </h3>
-                <div class="stars">
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class="bx bxs-star-half"></i>
-                </div>
-                <i class='bx bxs-quote-alt-left'></i>
-            </div>
-            <div class="review">
-                <div class="person">
-                    <img src="~/images/team_3.jpg" alt="">
-                    <h5>Ralph Edwards</h5>
-                    <small>Market Development Manager</small>
-                </div>
-                <h3>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut quis, rem culpa labore voluptate
-                    ullam! In, nostrum. Dicta, vero nihil. Delectus minus vitae rerum voluptatum, excepturi incidunt ut,
-                    enim nam exercitationem optio ducimus!
-                </h3>
-                <div class="stars">
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class='bx bxs-star'></i>
-                    <i class="bx bxs-star-half"></i>
-                </div>
-                <i class='bx bxs-quote-alt-left'></i>
-            </div>
-        </div>
-    </section>
-
-
-
-
+    
 
     <!-- Modal -->
    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -175,7 +103,7 @@
     <div class="container-fluid">
     <div class="row gy-4">
     <div class="col-lg-4 col-sm-12 bg-cover"
-    style="background-image: url(img/c2.jpg); min-height:300px;">
+    style="background-image: url(img/c2.jpg) min-height:300px">
     <div>
     </div>
     </div>

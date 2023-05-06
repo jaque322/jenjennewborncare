@@ -7,7 +7,9 @@ using jenjennewborncare.ViewModels;
 using jenjennewborncare.Data;
 using jenjennewborncare.Models;
 using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize(Roles ="admin")]
 public class ImagesController : Controller
 {
     private readonly jenjennewborncareContext _context;

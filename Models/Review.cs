@@ -11,17 +11,23 @@ namespace jenjennewborncare.Models
 
         [Required]
         [StringLength(100)]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string Content { get; set; }
+        public string Description { get; set; }
 
         [Required]
         [Range(1, 5)]
         public int Rating { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime ReviewDate { get; set; }
+        public DateTime ReviewDate
+        {
+            get;
+
+            set;
+        }
+    
 
         // Foreign key for related entity (if any)
         //public int? RelatedEntityId { get; set; }
