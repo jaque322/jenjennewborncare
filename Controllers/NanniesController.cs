@@ -51,7 +51,7 @@ namespace jenjennewborncare.Controllers
         public IActionResult Create()
         {
             var filteredImages = _context.Images.Where(x => x.Type == "Team");
-            ViewBag.ImageIdSelectList = new SelectList(filteredImages, "Id", "FileName");
+            ViewBag.ImageIdSelectList = new SelectList(filteredImages, "Id", "Title");
 
             return View();
         }

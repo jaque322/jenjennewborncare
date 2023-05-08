@@ -7,6 +7,7 @@ namespace jenjennewborncare.ViewModels
         public List<Image> Images { get; set; }
         public List<Nannie> Nannies { get; set; }
         public List<Review> Reviews{ get; set; }
+        public List<Service> Services{ get; set; }
 
     }
 }

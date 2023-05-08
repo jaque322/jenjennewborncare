@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace jenjennewborncare.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class servicechanged : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -215,31 +215,6 @@ namespace jenjennewborncare.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "BabyCareServices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    ServiceName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    ServiceContent = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    ProviderName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ServiceImageId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BabyCareServices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BabyCareServices_Images_ServiceImageId",
-                        column: x => x.ServiceImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Nannies",
                 columns: table => new
                 {
@@ -255,6 +230,31 @@ namespace jenjennewborncare.Migrations
                     table.ForeignKey(
                         name: "FK_Nannies_Images_ImageId",
                         column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ServiceName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    ServiceContent = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
+                    ProviderName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ServiceImageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Services_Images_ServiceImageId",
+                        column: x => x.ServiceImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -299,14 +299,14 @@ namespace jenjennewborncare.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BabyCareServices_ServiceImageId",
-                table: "BabyCareServices",
-                column: "ServiceImageId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Nannies_ImageId",
                 table: "Nannies",
                 column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_ServiceImageId",
+                table: "Services",
+                column: "ServiceImageId");
         }
 
         /// <inheritdoc />
@@ -328,13 +328,13 @@ namespace jenjennewborncare.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BabyCareServices");
-
-            migrationBuilder.DropTable(
                 name: "Nannies");
 
             migrationBuilder.DropTable(
                 name: "review");
+
+            migrationBuilder.DropTable(
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "Videos");

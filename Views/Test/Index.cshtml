@@ -1,39 +1,60 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@model IEnumerable<jenjennewborncare.Models.Service>
 <h1>Index</h1>
 
 <div class="container my-5">
-    <!-- Service 1 -->
-    <div class="row bg-custom-light rounded mb-3">
-        <div class="col-md-6">
-            <img src="~/images/team_1.jpg" class="img-fluid rounded service-image d-block mx-auto" alt="Service 1">
-        </div>
-        <div class="col-md-6 d-flex flex-column justify-content-center p-4">
-            <h4>Service 1</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <div class="mt-auto">
-            <a href="#" class="btn btn-custom mt-auto">Read more</a>
 
+@{
+    int counter = 0;
+}
+
+    @foreach (var item in Model)
+    {
+        if (counter % 2 == 0)
+        {
+            <!-- Service 1 -->
+            <div class="row bg-custom-light rounded mb-3">
+                <div class="col-md-6">
+                    <img src="~/uploads/@item.ServiceImage.FileName" class="img-thumbnail service-image transition rounded float-left d-block mx-auto" alt="...">
+                    @*<img src="~/images/team_1.jpg" class="rounded float-right" alt="...">*@
+                    @*<img src="~/images/team_1.jpg" class="img-fluid rounded service-image d-block mx-auto" alt="Service 1">*@
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center p-4">
+                    <h4>@item.ServiceName</h4>
+                    <p>@item.ServiceContent</p>
+                    <div class="mt-auto">
+                        @*<a href="#" class="btn btn-custom mt-auto">Read more</a>*@
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <!-- Service 2 -->
-    <div class="row bg-custom-dark rounded mb-3">
-        <div class="col-md-6">
-            <img src="your_image_url_2" class="img-fluid rounded service-image d-block mx-auto" alt="Service 2">
-        </div>
-        <div class="col-md-6 d-flex flex-column justify-content-center p-4">
-            <h4>Service 2</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <div class="mt-auto read-more-wrapper">
-                <a href="#" class="btn-custom">Read more</a>
+        }
+        else
+        {
+            <!-- Service 2 -->
+            <div class="row bg-custom-dark rounded mb-3">
+                <div class="col-md-6">
+                    <img src="~/images/team_1.jpg" class="img-thumbnail service-image transition rounded float-left d-block mx-auto" alt="...">
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center p-4">
+                    <h4>@item.ServiceName</h4>
+                    <p>@item.ServiceContent</p>
+                    <div class="mt-auto read-more-wrapper">
+                        @*<a href="#" class="btn-custom">Read more</a>*@
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+
+
+        }
+        counter++;
+    }
+
+
+
     <!-- Add more services as needed -->
 </div>
 

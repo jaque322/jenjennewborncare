@@ -20,12 +20,20 @@
                 <div class="row justify-content-between">
                     <div class="col-auto">
                         <p>
-                            <i class='bx bxs-envelope'></i>
-                            <span>jenjennewborncare.com</span>
+                            <a href="mailto:jenjennewborncare@gmail.com" class="text-white">
+                                <i class='bx bxs-envelope'></i>
+                                jenjennewborncare@gmail.com
+                            </a>
                         </p>
                         <p>     
-                            <i class='bx bxs-phone-call'></i>
-                            <span>+1 (813) 408-0971</span>
+                            <a href="tel:8134080971" class="text-white">
+                                <i class='bx bxs-phone'></i>
+                                (813) 408-0971
+                            </a>
+
+
+                            @*<a class='bx bxs-phone-call'  href="tel:(813) 408-0971">(813) 408-0971</a>*@
+                            @*<span>+1 (813) 408-0971</span>*@
                         </p>
                     </div>
                     <div class="col-auto">
@@ -54,7 +62,7 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
+                            <a class="nav-link" asp-controller="Services" asp-action="index">Services</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Reviews" asp-action="Create">Review</a>
@@ -62,7 +70,7 @@
                         <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
                         </li>
-                        <partial name="_LoginPartial" />
+                        <partial name="_LoginPartial"/>
                     </ul>
                     <a href="#" class="btn btn-brand ms-lg-3">Contact US</a>
                 </div>

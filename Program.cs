@@ -22,17 +22,24 @@ builder.Services.AddDbContext<jenjennewborncareContext>(options =>
 builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedAccount = false;
 })
-    .AddEntityFrameworkStores<jenjennewborncareContext>();
+    .AddRoles<IdentityRole>().AddEntityFrameworkStores<jenjennewborncareContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//configuring roles
+//builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 //configuring email sender
 //builder.Services.AddTransient<IEmailSender, EmailSender>();
 //builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("EmailSettings"));
 
-
+//access denied page modified
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = new PathString("/Errors/AccessDenied");
+});
 
 //configuring google authentication
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>

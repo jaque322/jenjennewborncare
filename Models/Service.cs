@@ -16,9 +16,9 @@ namespace jenjennewborncare.Models
         [MaxLength(500)]
         public string ServiceContent { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string ProviderName { get; set; }
+        //[Required]
+        //[MaxLength(100)]
+        //public string ProviderName { get; set; }
 
         [Required]
         [Range(0, 10000)]
@@ -36,5 +36,7 @@ namespace jenjennewborncare.Models
         {
             DateCreated = DateTime.Now;
         }
+
+        public ICollection<ScheduleService> ScheduleServices { get; set; }
     }
 }

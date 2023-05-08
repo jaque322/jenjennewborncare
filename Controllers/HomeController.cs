@@ -23,11 +23,13 @@ namespace jenjennewborncare.Controllers
             var images=_context.Images.ToList();
             var nannies=_context.Nannies.ToList();
             var reviews=_context.review.ToList();
+            var services=_context.Services.ToList();
             var viewModel = new HomeViewModel {
                 Videos = videos,
                 Images = images,
                 Nannies = nannies,
-                Reviews = reviews
+                Reviews = reviews,
+                Services = services
             };
             return View(viewModel);
         }

@@ -24,20 +24,20 @@ namespace jenjennewborncare.Controllers
         // GET: Services
         public async Task<IActionResult> Index()
         {
-              return _context.BabyCareServices != null ? 
-                          View(await _context.BabyCareServices.ToListAsync()) :
-                          Problem("Entity set 'jenjennewborncareContext.BabyCareServices'  is null.");
+              return _context.Services != null ? 
+                          View(await _context.Services.ToListAsync()) :
+                          Problem("Entity set 'jenjennewborncareContext.Services'  is null.");
         }
 
         // GET: Services/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Services == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices
+            var service = await _context.Services
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
@@ -75,12 +75,12 @@ namespace jenjennewborncare.Controllers
         // GET: Services/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Services == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices.FindAsync(id);
+            var service = await _context.Services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
@@ -126,12 +126,12 @@ namespace jenjennewborncare.Controllers
         // GET: Services/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Services == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices
+            var service = await _context.Services
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
@@ -146,14 +146,14 @@ namespace jenjennewborncare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.BabyCareServices == null)
+            if (_context.Services == null)
             {
-                return Problem("Entity set 'jenjennewborncareContext.BabyCareServices'  is null.");
+                return Problem("Entity set 'jenjennewborncareContext.Services'  is null.");
             }
-            var service = await _context.BabyCareServices.FindAsync(id);
+            var service = await _context.Services.FindAsync(id);
             if (service != null)
             {
-                _context.BabyCareServices.Remove(service);
+                _context.Services.Remove(service);
             }
             
             await _context.SaveChangesAsync();
@@ -162,7 +162,7 @@ namespace jenjennewborncare.Controllers
 
         private bool ServiceExists(int id)
         {
-          return (_context.BabyCareServices?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Services?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

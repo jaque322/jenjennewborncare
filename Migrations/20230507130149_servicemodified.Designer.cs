@@ -11,8 +11,8 @@ using jenjennewborncare.Data;
 namespace jenjennewborncare.Migrations
 {
     [DbContext(typeof(jenjennewborncareContext))]
-    [Migration("20230502035555_first")]
-    partial class first
+    [Migration("20230507130149_servicemodified")]
+    partial class servicemodified
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -305,11 +305,6 @@ namespace jenjennewborncare.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("ProviderName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
                     b.Property<string>("ServiceContent")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -328,7 +323,7 @@ namespace jenjennewborncare.Migrations
 
                     b.HasIndex("ServiceImageId");
 
-                    b.ToTable("BabyCareServices");
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("jenjennewborncare.Models.Video", b =>

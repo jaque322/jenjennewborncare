@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<jenjennewborncare.Models.Service>
-
-@{
+@if (User.IsInRole("admin"))
+{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_BackendLayout.cshtml";
-}
-
+    Layout = "~/Views/Shared/_BackendLayout.cshtml"; 
+    
+    
 <h1>Index</h1>
 
 <p>
@@ -19,9 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ServiceContent)
             </th>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.ProviderName)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -43,9 +43,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceContent)
             </td>
-            <td>
+           @* <td>
                 @Html.DisplayFor(modelItem => item.ProviderName)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
@@ -63,4 +63,68 @@
         </tr>
 }
     </tbody>
-</table>
+    </table>
+}else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <div class="container my-5">
+
+        @{
+            int counter = 0;
+        }
+
+        @foreach (var item in Model)
+        {
+            if (counter % 2 == 0)
+            {
+                <!-- Service 1 -->
+                <div class="row bg-custom-light rounded mb-3">
+                    <div class="col-md-6">
+                        <img src="~/uploads/@item.ServiceImage.FileName" class="img-thumbnail service-image transition rounded float-left d-block mx-auto" alt="...">
+                        @*<img src="~/images/team_1.jpg" class="rounded float-right" alt="...">*@
+                        @*<img src="~/images/team_1.jpg" class="img-fluid rounded service-image d-block mx-auto" alt="Service 1">*@
+                    </div>
+                    <div class="col-md-6 d-flex flex-column justify-content-center p-4">
+                        <h4>@item.ServiceName</h4>
+                        <p>@item.ServiceContent</p>
+                        <div class="mt-auto">
+                            @*<a href="#" class="btn btn-custom mt-auto">Read more</a>*@
+
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Service 2 -->
+                <div class="row bg-custom-dark rounded mb-3">
+                    <div class="col-md-6">
+                        <img src="~/images/team_1.jpg" class="img-thumbnail service-image transition rounded float-left d-block mx-auto" alt="...">
+                    </div>
+                    <div class="col-md-6 d-flex flex-column justify-content-center p-4">
+                        <h4>@item.ServiceName</h4>
+                        <p>@item.ServiceContent</p>
+                        <div class="mt-auto read-more-wrapper">
+                            @*<a href="#" class="btn-custom">Read more</a>*@
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+            counter++;
+        }
+
+
+
+        <!-- Add more services as needed -->
+    </div>
+    
+
+
+
+
+}
+
+

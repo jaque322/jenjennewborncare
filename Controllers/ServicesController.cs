@@ -22,21 +22,22 @@ namespace jenjennewborncare.Controllers
         }
 
         // GET: Services
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var jenjennewborncareContext = _context.BabyCareServices.Include(s => s.ServiceImage);
+            var jenjennewborncareContext = _context.Services.Include(s => s.ServiceImage);
             return View(await jenjennewborncareContext.ToListAsync());
         }
 
         // GET: Services/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Services == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices
+            var service = await _context.Services
                 .Include(s => s.ServiceImage)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
@@ -51,7 +52,8 @@ namespace jenjennewborncare.Controllers
         public IActionResult Create()
         {
             var filteredImages = _context.Images.Where(x => x.Type == "Services");
-            ViewData["ServiceImageId"] = new SelectList(filteredImages, "Id", "FileName");
+            ViewBag.ServiceImageId = new SelectList(filteredImages, "Id", "Title");
+
             return View();
         }
 
@@ -74,12 +76,12 @@ namespace jenjennewborncare.Controllers
         // GET: Services/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Services == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices.FindAsync(id);
+            var service = await _context.Services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
@@ -100,8 +102,7 @@ namespace jenjennewborncare.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
                     _context.Update(service);
@@ -119,7 +120,7 @@ namespace jenjennewborncare.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             ViewData["ServiceImageId"] = new SelectList(_context.Images, "Id", "FileName", service.ServiceImageId);
             return View(service);
         }
@@ -127,12 +128,12 @@ namespace jenjennewborncare.Controllers
         // GET: Services/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.BabyCareServices == null)
+            if (id == null || _context.Services == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.BabyCareServices
+            var service = await _context.Services
                 .Include(s => s.ServiceImage)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
@@ -148,14 +149,14 @@ namespace jenjennewborncare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.BabyCareServices == null)
+            if (_context.Services == null)
             {
-                return Problem("Entity set 'jenjennewborncareContext.BabyCareServices'  is null.");
+                return Problem("Entity set 'jenjennewborncareContext.Services'  is null.");
             }
-            var service = await _context.BabyCareServices.FindAsync(id);
+            var service = await _context.Services.FindAsync(id);
             if (service != null)
             {
-                _context.BabyCareServices.Remove(service);
+                _context.Services.Remove(service);
             }
             
             await _context.SaveChangesAsync();
@@ -164,7 +165,7 @@ namespace jenjennewborncare.Controllers
 
         private bool ServiceExists(int id)
         {
-          return (_context.BabyCareServices?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Services?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace jenjennewborncare.Controllers
 {
+    
     public class ReviewsController : Controller
     {
         private readonly jenjennewborncareContext _context;
@@ -21,6 +22,7 @@ namespace jenjennewborncare.Controllers
         }
 
         // GET: Reviews
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
               return _context.review != null ? 
@@ -29,6 +31,7 @@ namespace jenjennewborncare.Controllers
         }
 
         // GET: Reviews/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.review == null)
@@ -65,12 +68,21 @@ namespace jenjennewborncare.Controllers
             {
                 _context.Add(review);
                 await _context.SaveChangesAsync();
+                if ((!User.IsInRole("admin")))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
                 return RedirectToAction(nameof(Index));
+
+                }
             }
             return View(review);
         }
 
         // GET: Reviews/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.review == null)
@@ -91,6 +103,7 @@ namespace jenjennewborncare.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Rating,ReviewDate")] Review review)
         {
             if (id != review.Id)
@@ -122,6 +135,7 @@ namespace jenjennewborncare.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.review == null)
@@ -140,6 +154,7 @@ namespace jenjennewborncare.Controllers
         }
 
         // POST: Reviews/Delete/5
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

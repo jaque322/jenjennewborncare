@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using jenjennewborncare.Data;
 
@@ -10,9 +11,11 @@ using jenjennewborncare.Data;
 namespace jenjennewborncare.Migrations
 {
     [DbContext(typeof(jenjennewborncareContext))]
-    partial class jenjennewborncareContextModelSnapshot : ModelSnapshot
+    [Migration("20230507115312_servicechanged")]
+    partial class servicechanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,6 +304,11 @@ namespace jenjennewborncare.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProviderName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ServiceContent")
                         .IsRequired()

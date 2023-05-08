@@ -51,7 +51,7 @@ section {
     }
 /*Navbar */
 .top-nav {
-    background-color: #ff4d29;
+    background-color: #DBA9A9;
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -111,13 +111,15 @@ section {
 
 .btn-brand {
     color: white !important;
-    background-color: #ff4d29;
-    border-color: #ff4d29;
+    background-color: #F7BEC5; /* Lighter shade of pink */
+    border-color: #DBA9A9; /* Same color as navbar */
 }
 
-    .btn-brand:hover {
-        color: white;
-        background-color: #d63e20;
+    .btn-brand:hover,
+    .btn-brand:active {
+        color: white !important;
+        background-color: #DBA9A9; /* Same color as navbar */
+        border-color: #C7978E; /* Slightly darker shade of pink */
     }
 
 /*slider*/
@@ -485,3 +487,5 @@ input.form-control {
         height: 240px;
     }
 
+  
+  

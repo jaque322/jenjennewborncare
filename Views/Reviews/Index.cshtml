@@ -1,10 +1,18 @@
 ﻿@model IEnumerable<jenjennewborncare.Models.Review>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    if (User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Shared/_BackendLayout.cshtml";
 
+    }
+    else
+    {
+        
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
 <h1>Index</h1>
 
 <p>
