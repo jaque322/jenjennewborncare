@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using jenjennewborncare.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
+using System.ComponentModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,9 @@ builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireCon
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+
 
 //configuring roles
 //builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -48,7 +52,6 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 
 });
-
 
 var app = builder.Build();
 
