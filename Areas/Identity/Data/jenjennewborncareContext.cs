@@ -14,6 +14,8 @@ public class jenjennewborncareContext : IdentityDbContext<User>
     public DbSet<Image> Images { get; set; }
     public DbSet<Video> Videos { get; set; }
     public DbSet<Nannie> Nannies { get; set; }
+    public DbSet<ScheduleService> ScheduleServices { get; set; }
+    public DbSet<Schedule> Schedules{ get; set; }
 
     public jenjennewborncareContext(DbContextOptions<jenjennewborncareContext> options)
         : base(options)
@@ -25,8 +27,23 @@ public class jenjennewborncareContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
+
         // Add your customizations after calling base.OnModelCreating(builder);
+
+        builder.Entity<ScheduleService>()
+            .HasKey(ss => new { ss.ScheduleId, ss.ServiceId });
+
+        builder.Entity<ScheduleService>()
+            .HasOne(ss => ss.Schedule)
+            .WithMany(s => s.ScheduleServices)
+            .HasForeignKey(ss => ss.ScheduleId);
+
+        builder.Entity<ScheduleService>()
+            .HasOne(ss => ss.Service)
+            .WithMany(s => s.ScheduleServices)
+            .HasForeignKey(ss => ss.ServiceId);
+
+        // If you have any other relationships to configure, add them here
     }
+
 }
