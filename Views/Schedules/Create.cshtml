@@ -13,7 +13,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
-
+@if (@TempData["alertMessage"]!=null)
+{
+<div class="alert alert-success" style="margin-top:4px">
+    <strong>Sucess @TempData["alertMessage"]</strong>
+</div>
+    
+}
 <h1>Create</h1>
 
 <h4>Schedule Your Services</h4>
@@ -63,10 +69,30 @@
         </div>
     </div>
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Create" class="btn btn-primary" id="createButton" />
     </div>
 </form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const checkboxes = document.querySelectorAll("#servicesCheckboxes .form-check-input");
+            const createButton = document.getElementById("createButton");
+
+            function updateCreateButton() {
+                const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                createButton.disabled = !isAnyChecked;
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", updateCreateButton);
+            });
+
+            // Initialize the button state
+            updateCreateButton();
+        });
+    </script>
+}

@@ -36,8 +36,8 @@ builder.Services.AddControllersWithViews();
 
 
 //configuring email sender
-//builder.Services.AddTransient<IEmailSender, EmailSender>();
-//builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("EmailSettings"));
 
 //access denied page modified
 builder.Services.ConfigureApplicationCookie(options =>
