@@ -1,0 +1,33 @@
+﻿    @model jenjennewborncare.ViewModels.PaymentViewModel
+<style>
+    .form-container {
+        max-width: 300px;
+        margin: auto;
+    }
+
+    .btn-pink {
+        background-color: #ff69b4;
+        border-color: #ff69b4;
+    }
+
+        .btn-pink:hover,
+        .btn-pink:focus,
+        .btn-pink:active {
+            background-color: #ff8bc6;
+            border-color: #ff8bc6;
+        }
+</style>
+
+<div class="form-container">
+
+    <form asp-action="create-checkout-session" method="post">
+        <div class="form-group">
+            <label for="SelectedOption">Select an option:</label>
+            <select asp-for="SelectedOption" asp-items="@(new SelectList(Model.AvailableOptions))" class="form-control">
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>

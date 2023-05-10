@@ -31,7 +31,8 @@ builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireCon
 builder.Services.AddControllersWithViews();
 
 
-
+//configuring api
+//builder.Services.AddEndpointsApiExplorer();
 
 //configuring roles
 //builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
