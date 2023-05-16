@@ -22,7 +22,8 @@
                         <img src="~/uploads/@item.ServiceImage.FileName" alt="" class="rounded-circle">
                         <h5>@item.ServiceName</h5>
                         <p style="text-align:justify">
-                            @(item.ServiceContent.Length > 30 ? item.ServiceContent.Substring(0, 150) + "..." : item.ServiceContent)
+                            @(item.ServiceContent.Length > 118 ? item.ServiceContent.Substring(0, 118) + "..." : item.ServiceContent)
+
 
 
                         </p>

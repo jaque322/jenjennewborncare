@@ -63,17 +63,16 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 //configuring google authentication
-builder.Services.AddAuthentication(options =>
-{
+builder.Services.AddAuthentication(
+
     //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    //options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 
-
-}).AddCookie().AddGoogle(GoogleDefaults.AuthenticationScheme,googleOptions =>
+).AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-    googleOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.profile");
+    //googleOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.profile");
 
 });
 

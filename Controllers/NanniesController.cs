@@ -85,7 +85,7 @@ namespace jenjennewborncare.Controllers
             {
                 return NotFound();
             }
-            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "FileName", nannie.ImageId);
+            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Title", nannie.ImageId);
             return View(nannie);
         }
 
@@ -101,8 +101,7 @@ namespace jenjennewborncare.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+          
                 try
                 {
                     _context.Update(nannie);
@@ -120,7 +119,7 @@ namespace jenjennewborncare.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "FileName", nannie.ImageId);
             return View(nannie);
         }

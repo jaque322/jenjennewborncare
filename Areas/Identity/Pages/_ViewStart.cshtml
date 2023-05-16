@@ -1,4 +1,7 @@
-﻿
-@{
-    Layout = "/Views/Shared/_BackendLayout.cshtml";
+﻿@if (User.IsInRole("admin"))
+{
+    
+
+   Layout = "/Views/Shared/_BackendLayout.cshtml";
+
 }

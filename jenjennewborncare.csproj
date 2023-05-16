@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>71cab15f-6235-4515-9836-ace30571c73d</UserSecretsId>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
+    <PackageReference Include="Azure.Identity" Version="1.9.0" />
     <PackageReference Include="BlazorDateRangePicker" Version="4.3.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.60.0" />

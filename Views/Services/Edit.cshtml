@@ -20,9 +20,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="ServiceContent" class="control-label"></label>
-                <input asp-for="ServiceContent" class="form-control" />
+                <textarea asp-for="ServiceContent" class="form-control"></textarea>
                 <span asp-validation-for="ServiceContent" class="text-danger"></span>
             </div>
+
           @*  <div class="form-group">
                 <label asp-for="ProviderName" class="control-label"></label>
                 <input asp-for="ProviderName" class="form-control" />
@@ -44,7 +45,7 @@
                 <span asp-validation-for="ServiceImageId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

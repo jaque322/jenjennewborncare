@@ -230,7 +230,7 @@ namespace jenjennewborncare.Controllers
 
 
             await _emailSender.SendEmailAsync(User.FindFirstValue(ClaimTypes.Email), "Welcome to JenJen Newborn Care Services", htmlEmailContent);
-            await _emailSender.SendEmailAsync("janselsobrino@gmail.com", "Jenjennewborncare ADMIN", adminHtmlEmailContent);
+            await _emailSender.SendEmailAsync("jenjennewborncare@gmail.com", "Jenjennewborncare ADMIN", adminHtmlEmailContent);
 
 
 

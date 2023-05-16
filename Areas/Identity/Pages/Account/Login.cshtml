@@ -74,7 +74,11 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Authenticate using @provider.DisplayName account">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo" style="height:20px; width:20px; margin-right:5px;">
+                                        @provider.DisplayName
+                                    </button>
+
                                 }
                             </p>
                         </div>
