@@ -4,31 +4,22 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>71cab15f-6235-4515-9836-ace30571c73d</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\images\about.png" />
-    <Content Remove="wwwroot\images\bg_banner1.jpg" />
-    <Content Remove="wwwroot\images\bg_banner2.jpg" />
-    <Content Remove="wwwroot\images\c2.jpg" />
-    <Content Remove="wwwroot\images\icon2.png" />
-    <Content Remove="wwwroot\images\icon3.png" />
-    <Content Remove="wwwroot\images\icon4.png" />
-    <Content Remove="wwwroot\images\icon5.png" />
-    <Content Remove="wwwroot\images\icon6.png" />
-    <Content Remove="wwwroot\images\project1.jpg" />
-    <Content Remove="wwwroot\images\project2.jpg" />
-    <Content Remove="wwwroot\images\project3.jpg" />
-    <Content Remove="wwwroot\images\project4.jpg" />
-    <Content Remove="wwwroot\images\project5.jpg" />
-    <Content Remove="wwwroot\images\team_1.jpg" />
-    <Content Remove="wwwroot\images\team_2.jpg" />
-    <Content Remove="wwwroot\images\team_3.jpg" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BlazorDateRangePicker" Version="4.3.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.60.0" />
+    <PackageReference Include="Google.Apis.PeopleService.v1" Version="1.60.0.2924" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
@@ -44,34 +35,16 @@
     <PackageReference Include="MySql.Data.EntityFramework" Version="8.0.33" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="MySqlConnector" Version="2.2.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="Stripe.net" Version="41.15.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Controllers\Migrations\" />
     <Folder Include="Views\Backend\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\js\stripe\" />
     <Folder Include="wwwroot\uploads\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\images\about.png" />
-    <None Include="wwwroot\images\bg_banner1.jpg" />
-    <None Include="wwwroot\images\bg_banner2.jpg" />
-    <None Include="wwwroot\images\c2.jpg" />
-    <None Include="wwwroot\images\icon1.png" />
-    <None Include="wwwroot\images\icon2.png" />
-    <None Include="wwwroot\images\icon3.png" />
-    <None Include="wwwroot\images\icon4.png" />
-    <None Include="wwwroot\images\icon5.png" />
-    <None Include="wwwroot\images\icon6.png" />
-    <None Include="wwwroot\images\project1.jpg" />
-    <None Include="wwwroot\images\project2.jpg" />
-    <None Include="wwwroot\images\project3.jpg" />
-    <None Include="wwwroot\images\project4.jpg" />
-    <None Include="wwwroot\images\project5.jpg" />
-    <None Include="wwwroot\images\team_1.jpg" />
-    <None Include="wwwroot\images\team_2.jpg" />
-    <None Include="wwwroot\images\team_3.jpg" />
   </ItemGroup>
 
 </Project>

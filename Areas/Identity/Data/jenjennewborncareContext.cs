@@ -16,6 +16,7 @@ public class jenjennewborncareContext : IdentityDbContext<User>
     public DbSet<Nannie> Nannies { get; set; }
     public DbSet<ScheduleService> ScheduleServices { get; set; }
     public DbSet<Schedule> Schedules{ get; set; }
+    public DbSet<Invoice> Invoices{ get; set; }
 
     public jenjennewborncareContext(DbContextOptions<jenjennewborncareContext> options)
         : base(options)

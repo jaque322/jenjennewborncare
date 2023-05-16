@@ -58,9 +58,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                       @* <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Services" asp-action="index">Services</a>
                         </li>
@@ -70,9 +70,19 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Schedules" asp-action="Create">Schedule</a>
                         </li>
-                        <li class="nav-item">
+
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Payments" asp-action="Index">Payment</a>
+                                </li>
+                            }
+                        }
+
+                      @*  <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
-                        </li>
+                        </li>*@
                         <partial name="_LoginPartial"/>
                     </ul>
                     <a href="#" class="btn btn-brand ms-lg-3">Contact US</a>

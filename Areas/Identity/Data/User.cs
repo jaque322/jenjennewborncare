@@ -20,6 +20,7 @@ public class User : IdentityUser
         return base.Equals(obj);
     }
 
+
     public override int GetHashCode()
     {
         return base.GetHashCode();
@@ -31,5 +32,6 @@ public class User : IdentityUser
     }
 
     public ICollection<Schedule> ScheduleItems { get; set; }
+    public List<Invoice> Invoices { get; set; }
 }
 

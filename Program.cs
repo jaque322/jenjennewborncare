@@ -9,26 +9,31 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel;
 using Stripe;
 using jenjennewborncare.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Google.Apis.Auth.AspNetCore3;
+using Google.Apis.Auth.OAuth2;
+using MySqlX.XDevAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 
 //ConfigurationBinder for oauth google
-var configuration = builder.Configuration;
+    var configuration = builder.Configuration;
 
 
-var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
-builder.Services.AddDbContext<jenjennewborncareContext>(options =>
-    options.UseMySQL(connectionString));
+    var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
+    builder.Services.AddDbContext<jenjennewborncareContext>(options =>
+        options.UseMySQL(connectionString));
 
-builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedAccount = false;
-})
-    .AddRoles<IdentityRole>().AddEntityFrameworkStores<jenjennewborncareContext>();
+    builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedEmail = false;
+        options.SignIn.RequireConfirmedAccount = false;
+    })
+        .AddRoles<IdentityRole>().AddEntityFrameworkStores<jenjennewborncareContext>();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+    // Add services to the container.
+    builder.Services.AddControllersWithViews();
 
 
 //configuring api
@@ -48,6 +53,9 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretK
 
 
 
+
+
+
 //access denied page modified
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -55,10 +63,17 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 //configuring google authentication
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+builder.Services.AddAuthentication(options =>
+{
+    //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+
+
+}).AddCookie().AddGoogle(GoogleDefaults.AuthenticationScheme,googleOptions =>
 {
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    googleOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.profile");
 
 });
 
@@ -73,6 +88,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
+app.UseCookiePolicy();
 
 app.UseAuthorization();
 app.MapRazorPages();

@@ -23,8 +23,8 @@
     <form asp-action="create-checkout-session" method="post">
         <div class="form-group">
             <label for="SelectedOption">Select an option:</label>
-            <select asp-for="SelectedOption" asp-items="@(new SelectList(Model.AvailableOptions))" class="form-control">
-            </select>
+            <input type="number" min="1"  asp-for="SelectedOption" asp-controller="Payments" asp-action="CreateCheckoutSession" class="form-control">
+            </input>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

@@ -2,16 +2,16 @@
     ViewData["Title"] = "Payment Success";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@model string
 <div class="row mt-5">
     <div class="col-md-12 text-center">
         <h1>Payment Success</h1>
-        <p class="lead">Your payment was successful! Thank you for your purchase.</p>
+        <p class="lead">Your payment was successful! Thank you for your purchase, a receipt has been sent to your mail.</p>
     </div>
 </div>
 
 <div class="row mt-4">
     <div class="col-md-12 text-center">
-        <a href="/" class="btn btn-primary">Return to Home Page</a>
+        <a href="/" class="btn btn-primary">Return to Home Page @Model</a>
     </div>
 </div>
