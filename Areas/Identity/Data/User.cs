@@ -15,6 +15,9 @@ public class User : IdentityUser
     public override string Email { get => base.Email; set => base.Email = value; }
     public override string NormalizedEmail { get => base.NormalizedEmail; set => base.NormalizedEmail = value; }
 
+
+
+
     public override bool Equals(object? obj)
     {
         return base.Equals(obj);

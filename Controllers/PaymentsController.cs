@@ -33,13 +33,15 @@ namespace jenjennewborncare.Controllers
     public partial class PaymentsController : Controller
     {
         private readonly string _host;
+        private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
         private readonly jenjennewborncareContext _dbcontext;
         private readonly ILogger<PaymentsController> _logger;
         private readonly IEmailSender _emailSender;
         private readonly StripeSettings _stripeSettings;
-        public PaymentsController(ILogger<PaymentsController> logger, UserManager<User> userManager, IOptions<StripeSettings> stripeSettings, IEmailSender? emailSender, jenjennewborncareContext dbcontext)
+        public PaymentsController(IConfiguration configuration,ILogger<PaymentsController> logger, UserManager<User> userManager, IOptions<StripeSettings> stripeSettings, IEmailSender? emailSender, jenjennewborncareContext dbcontext)
         {
+            _configuration=configuration;
             _userManager = userManager;
             _stripeSettings = stripeSettings.Value;
             StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
@@ -61,7 +63,7 @@ namespace jenjennewborncare.Controllers
         public ActionResult CreateCheckoutSession()
         {
             //declaring domain
-            var domain = "https://localhost:44311";
+            var domain = _configuration.GetSection("utils:domain").Value;
 
             string selectedOptionStr = HttpContext.Request.Form["SelectedOption"];
             long? selectedOption;

@@ -15,19 +15,28 @@ using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using jenjennewborncare.Areas.Identity.Data;
+using Microsoft.Extensions.Configuration;
+
+
 
 namespace jenjennewborncare.Controllers
 {
     
     public class SchedulesController : Controller
     {
+        private readonly UserManager<User> _userManager;
+        private  IConfiguration _configuration;
         private readonly jenjennewborncareContext _context;
         private readonly IEmailSender _emailSender;
 
-        public SchedulesController(jenjennewborncareContext context, IEmailSender emailSender)
+        public SchedulesController(IConfiguration configuration,UserManager<User> userManager,jenjennewborncareContext context, IEmailSender emailSender)
         {
             _context = context;
             _emailSender = emailSender;
+            _userManager = userManager;
+            _configuration = configuration;
         }
 
 
@@ -85,7 +94,7 @@ namespace jenjennewborncare.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,StartTime,EndTime,UserId,ServiceIds")] ScheduleViewModel scheduleViewModel)
+        public async Task<IActionResult> Create([Bind("Id,StartTime,EndTime,UserId,ServiceIds,PhoneNumber")] ScheduleViewModel scheduleViewModel)
         {
           
                 Schedule schedule = new Schedule
@@ -93,6 +102,7 @@ namespace jenjennewborncare.Controllers
                     StartTime = scheduleViewModel.StartTime,
                     EndTime = scheduleViewModel.EndTime,
                     UserId = scheduleViewModel.UserId,
+                   
                     ScheduleServices = new List<ScheduleService>()
                 };
 
@@ -113,7 +123,28 @@ namespace jenjennewborncare.Controllers
                 }
 
                 _context.Add(schedule);
-                await _context.SaveChangesAsync();
+
+            // Find the user and update their phone number
+            var user = await _userManager.FindByIdAsync(scheduleViewModel.UserId);
+            if (user != null)
+            {
+                user.PhoneNumber = scheduleViewModel.PhoneNumber;
+                var result = await _userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    // Handle the error here, for example log it or add a ModelState error
+                }
+            }
+            else
+            {
+                // Handle the error here, for example log it or add a ModelState error
+            }
+
+
+
+            await _context.SaveChangesAsync();
+
 
                 ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", scheduleViewModel.UserId);
             //sending email message config
@@ -206,7 +237,7 @@ namespace jenjennewborncare.Controllers
             htmlBuilder.AppendLine("<h1 class='header'>JenJen Newborn Care Services - New Service Request</h1>");
             htmlBuilder.AppendLine("        <p>Dear Admin,</p>");
             htmlBuilder.AppendLine("        <p>A new service request has been submitted by a client. Please review the request and take appropriate action, such as contacting the client to discuss their needs and providing additional information as required.</p>");
-            htmlBuilder.AppendLine($"<p><b>List of Services requested by: {User.FindFirstValue(ClaimTypes.Email)}</b></p>");
+            htmlBuilder.AppendLine($"<p><b>List of Services requested by:</b> {User.FindFirstValue(ClaimTypes.Email)} with <b>Phone Number</b>: {scheduleViewModel.PhoneNumber}</p>");
 
 
             htmlBuilder.AppendLine("<ul>");
@@ -230,7 +261,7 @@ namespace jenjennewborncare.Controllers
 
 
             await _emailSender.SendEmailAsync(User.FindFirstValue(ClaimTypes.Email), "Welcome to JenJen Newborn Care Services", htmlEmailContent);
-            await _emailSender.SendEmailAsync("jenjennewborncare@gmail.com", "Jenjennewborncare ADMIN", adminHtmlEmailContent);
+            await _emailSender.SendEmailAsync(_configuration.GetSection("utils:adminEmail").Value, "Jenjennewborncare ADMIN", adminHtmlEmailContent);
 
 
 

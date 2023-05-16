@@ -45,7 +45,6 @@
   <ItemGroup>
     <Folder Include="Controllers\Migrations\" />
     <Folder Include="Views\Backend\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\stripe\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
