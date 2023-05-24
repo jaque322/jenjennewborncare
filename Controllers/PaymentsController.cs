@@ -5,7 +5,6 @@ using Google.Apis.PeopleService.v1.Data;
 using Google.Apis.Services;
 using jenjennewborncare.Areas.Identity.Data;
 using jenjennewborncare.Data;
-using jenjennewborncare.Migrations;
 using jenjennewborncare.Models;
 using jenjennewborncare.Services;
 using jenjennewborncare.ViewModels;

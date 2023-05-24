@@ -1,8 +1,18 @@
 ﻿@model jenjennewborncare.Models.Review
 
 @{
-    ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (User.IsInRole("admin"))
+    {
+        ViewData["Title"] = "Details";
+        Layout = "~/Views/Shared/_BackendLayout.cshtml";
+
+    }
+    else
+    {
+
+        ViewData["Title"] = "Details";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 <h1>Edit</h1>

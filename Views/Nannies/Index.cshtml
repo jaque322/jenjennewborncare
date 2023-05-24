@@ -35,7 +35,9 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image.FileName)
+                    <div class="thumbnail">
+                        <img class="rounded float-start" src="./uploads/@Url.Content(item.Image.FileName)" alt="Service Image" style="width: 150px; height: 150px;">
+                    </div>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

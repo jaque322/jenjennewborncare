@@ -14,20 +14,47 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Google.Apis.Auth.AspNetCore3;
 using Google.Apis.Auth.OAuth2;
 using MySqlX.XDevAPI;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+var environment = builder.Environment;
 
-//ConfigurationBinder for oauth google
-    var configuration = builder.Configuration;
+    var config = new ConfigurationBuilder()
+        .SetBasePath(builder.Environment.ContentRootPath)
+        .AddJsonFile("appsettings.json")
+        .AddJsonFile("appsettings.production.json", optional: true)
+        .AddEnvironmentVariables()
+        .Build();
+
+    // Retrieve configuration values specific to Azure AD and Key Vault
+    var tenantId = config["AzureAd:TenantId"];
+    var clientId = config["AzureAd:ClientId"];
+    var clientSecret = config["AzureAd:ClientSecret"];
+    var keyVaultUrl = config["AzureAd:KeyVaultUrl"];
+
+    // Establish connection with Azure Key Vault
+    var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+    var secretClient = new SecretClient(new Uri(keyVaultUrl), credential);
+
+    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), credential);
 
 
-    var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnection") ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnection' not found.");
-    builder.Services.AddDbContext<jenjennewborncareContext>(options =>
-        options.UseMySQL(connectionString));
+// Establish MySQL database connection
+var connectionString = builder.Configuration.GetConnectionString("jenjennewborncareContextConnections")
+    ?? throw new InvalidOperationException("Connection string 'jenjennewborncareContextConnections' not found.");
 
-    builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedEmail = false;
+builder.Services.AddDbContext<jenjennewborncareContext>(options =>
+    options.UseMySQL(connectionString));
+
+
+builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedEmail = false;
         options.SignIn.RequireConfirmedAccount = false;
     })
         .AddRoles<IdentityRole>().AddEntityFrameworkStores<jenjennewborncareContext>();
@@ -65,18 +92,33 @@ builder.Services.ConfigureApplicationCookie(options =>
 //configuring google authentication
 builder.Services.AddAuthentication(
 
-    //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    //options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+//options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 
-).AddGoogle(googleOptions =>
+);
+
+// Configure Google authentication
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-    //googleOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.profile");
-
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
+
+
+//builder.Services.Configure<ForwardedHeadersOptions>(options => {
+//    options.KnownProxies.Add(IPAddress.Parse("10.0.0.100"));
+//});
+
 var app = builder.Build();
+
+//configure ngnix to wors properly
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders=ForwardedHeaders.XForwardedFor|ForwardedHeaders.XForwardedProto
+
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
