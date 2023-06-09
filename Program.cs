@@ -90,18 +90,20 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 //configuring google authentication
-builder.Services.AddAuthentication(
+//builder.Services.AddAuthentication(
 
 //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 //options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 
-);
+//);
 
 // Configure Google authentication
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    googleOptions.ForwardSignIn = "/";
+    //googleOptions.CallbackPath = new PathString("/home");
 });
 
 
